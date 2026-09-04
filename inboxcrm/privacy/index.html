@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>inboxCRM — Privacy Policy</title>
+<style>
+  body{margin:0;background:#fafafa;color:#18181b;font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  main{max-width:760px;margin:0 auto;padding:48px 24px 96px;background:#fff;min-height:100vh;box-sizing:border-box}
+  h1{font-size:28px;line-height:1.3} h2{font-size:20px;margin-top:2em;border-bottom:1px solid #e9e9eb;padding-bottom:6px}
+  a{color:#0b7a45} code{background:#f4f4f5;padding:1px 5px;border-radius:4px;font-size:14px}
+  table{border-collapse:collapse;width:100%;font-size:14px} th,td{border:1px solid #e4e4e7;padding:6px 10px;text-align:left}
+  footer{margin-top:48px;font-size:13px;color:#71717a}
+</style>
+</head>
+<body><main>
+<h1>Privacy Policy for inboxCRM</h1>
+<p><strong>Effective date:</strong> September 4, 2026</p>
+<p>inboxCRM ("the Extension", "we", "us", "our") is a browser extension that
+adds customer-relationship-management tools to WhatsApp Web. This policy
+explains what information the Extension handles, where it is stored, and the
+limited circumstances in which any of it leaves your device.</p>
+<p>The Extension is published by Extino Ltd.</p>
+<hr />
+<h2>1. Summary</h2>
+<ul>
+<li>The Extension is <strong>local-first</strong>. Your CRM data — pipelines, notes, tags,
+  templates, schedules, orders and reports — is stored in Chrome's local
+  extension storage on your own computer.</li>
+<li>We operate <strong>no server that receives your WhatsApp messages or CRM records</strong>.</li>
+<li>Information leaves your device only when you choose a feature that requires
+  it: the optional AI assistant, optional webhooks you configure yourself, an
+  optional self-hosted bridge server you run, and — when account sign-in is
+  enabled — our account and subscription service.</li>
+<li>We do not sell your data. We do not use it for advertising. We run no
+  analytics or telemetry inside the Extension.</li>
+</ul>
+<hr />
+<h2>2. Information the Extension handles</h2>
+<h3>2.1 Data stored locally on your device</h3>
+<p>Stored in <code>chrome.storage.local</code> and never transmitted by us:</p>
+<ul>
+<li>Contact names and phone numbers (WhatsApp chat identifiers) attached to the
+  CRM records you create</li>
+<li>Kanban boards, stages, deal values, tags, categories and custom tabs</li>
+<li>Notes you write about contacts</li>
+<li>Quick-reply templates and any images, video, audio or documents you attach to
+  them</li>
+<li>Scheduled messages, appointments, follow-up rules, chatbot flows and
+  auto-reply rules you configure</li>
+<li>Order and delivery records, and any custom contact profile fields you add</li>
+<li>Campaign recipient lists and send logs</li>
+<li>Sending-safety settings and the counters that enforce your daily and hourly
+  limits</li>
+<li>Interface preferences (language, theme, privacy blur)</li>
+<li>Backups you export or schedule</li>
+</ul>
+<h3>2.2 WhatsApp message content</h3>
+<p>To provide its features, the Extension reads content from the WhatsApp Web page
+you have open — the currently selected conversation, its participants, and
+recent message text. This is used to display the panel, to evaluate the
+automation rules you set up, and, if you use the AI assistant, to give the AI
+model context. The Extension does not create an archive copy of your chat
+history; only the CRM records you create are stored.</p>
+<h3>2.3 Credentials</h3>
+<ul>
+<li>Any AI provider API key you choose to save</li>
+<li>The access token for the optional self-hosted bridge server</li>
+<li>When account sign-in is enabled: your Extino session token and cached
+  subscription status</li>
+</ul>
+<p>All are stored locally. API keys are sent only to the provider they belong to.</p>
+<hr />
+<h2>3. When information leaves your device</h2>
+<h3>3.1 AI assistant (optional)</h3>
+<p>If you use the AI assistant to draft or improve a reply, the Extension sends a
+prompt to the AI provider you selected. <strong>That prompt contains message text
+from the conversation you have open</strong> (by default the most recent 15 messages),
+the contact or group name, and anything you typed in the composer.</p>
+<p>Depending on your settings the recipient is one of:</p>
+<ul>
+<li><strong>OpenRouter</strong> — <code>openrouter.ai</code></li>
+<li><strong>OpenAI</strong> — <code>api.openai.com</code></li>
+<li><strong>Google Gemini</strong> — <code>generativelanguage.googleapis.com</code></li>
+<li><strong>Groq</strong> — <code>api.groq.com</code></li>
+<li><strong>Your own proxy server</strong> — the self-hosted bridge described in the
+  Extension's documentation, which forwards the request to OpenRouter using a
+  key held on your server</li>
+</ul>
+<p>Each provider processes that data under its own privacy policy and terms. We do
+not receive a copy. If you never use an AI feature, no message content leaves
+your browser.</p>
+<p>If you enable per-message AI rewording in bulk campaigns, the message text for
+each recipient is likewise sent to the provider you selected.</p>
+<h3>3.2 Account and subscription (<code>api.extino.net</code>)</h3>
+<p>When account sign-in is enabled in your build, the Extension communicates with
+our account service at <code>https://api.extino.net</code> to sign you in, read your
+profile, check your subscription status (re-checked in the background roughly
+every six hours), retrieve pricing, and open Stripe checkout or billing-portal
+sessions.</p>
+<p>Data handled for this purpose may include your user ID, email address, display
+name, profile image, session token and subscription state. <strong>No WhatsApp
+message content and no CRM record is ever sent to this service.</strong></p>
+<p>Payment card details are collected by <strong>Stripe</strong> on Extino-hosted billing
+pages. They never pass through the Extension, and we do not store them.</p>
+<h3>3.3 Webhooks you configure</h3>
+<p>The Extension can POST event notifications to URLs <strong>you</strong> enter in its Webhooks
+screen. Events you can subscribe to include incoming messages, quick replies
+sent, auto-attendance triggers, follow-ups dispatched, schedules fired, CRM
+updates, label changes, completed conversations and Meta-ads clicks.</p>
+<p>Depending on the event and the fields you enable, a payload may contain the
+contact's phone number, their name, and the message body — and, for the
+incoming-message event, optionally downloaded media. You choose the destination
+and are responsible for its security and for whatever lawful basis you need to
+send that data there. We never receive these payloads.</p>
+<h3>3.4 Self-hosted bridge server (optional)</h3>
+<p>If you run the optional bridge server and turn it on in the Extension, the
+Extension's background worker connects to the address you entered (for example
+<code>http://localhost:3900</code> or a tunnel URL) and accepts send commands relayed
+through it. That server runs on infrastructure you control. We do not operate
+it and receive nothing from it.</p>
+<hr />
+<h2>4. How information is used</h2>
+<p>Information handled by the Extension is used only to:</p>
+<ul>
+<li>Display and organise your WhatsApp conversations inside the CRM</li>
+<li>Store the notes, tags, templates, pipelines and records you create</li>
+<li>Send the messages you compose, schedule or approve</li>
+<li>Apply the sending-safety limits you configure</li>
+<li>Generate AI drafts when you request them</li>
+<li>Deliver the webhook events you subscribed to</li>
+<li>Verify your subscription, when sign-in is enabled</li>
+</ul>
+<p>We do not use it for advertising, profiling, credit decisions, or sale to any
+third party.</p>
+<hr />
+<h2>5. Third parties</h2>
+<table>
+<thead>
+<tr>
+<th>Third party</th>
+<th>Receives</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenRouter, OpenAI, Google (Gemini), Groq</td>
+<td>AI prompt containing recent message text and your draft</td>
+<td>Only when you use an AI feature</td>
+</tr>
+<tr>
+<td>Extino account service (<code>api.extino.net</code>)</td>
+<td>Account identity, session token, subscription status</td>
+<td>Only when sign-in is enabled</td>
+</tr>
+<tr>
+<td>Stripe (via Extino-hosted pages)</td>
+<td>Payment details you enter on their page</td>
+<td>Only on purchase</td>
+</tr>
+<tr>
+<td>Endpoints you enter in Webhooks</td>
+<td>Event payloads you configured</td>
+<td>Only for events you subscribed to</td>
+</tr>
+</tbody>
+</table>
+<p>Each processes data under its own policies. We do not sell personal
+information, and we do not share it with anyone not listed above except where
+required by law or to protect users and the service.</p>
+<hr />
+<h2>6. Retention and deletion</h2>
+<ul>
+<li><strong>Local data</strong> stays on your device until you delete it. You can remove
+  individual records inside the Extension, export an encrypted backup, clear
+  the Extension's storage from <code>chrome://extensions</code>, or <strong>uninstall the
+  Extension</strong>, which removes its local storage entirely.</li>
+<li><strong>Back up first if you want to keep your records.</strong> Use the Extension's
+  Backup screen to export before uninstalling; the exported file is yours to
+  keep or delete.</li>
+<li><strong>AI providers</strong> retain prompts according to their own policies. Review the
+  policy of whichever provider you configure.</li>
+<li><strong>Account records</strong>, where sign-in is enabled, may be retained for account,
+  billing, fraud-prevention, legal and support purposes. To request access to
+  or deletion of that account data, contact extinoltd@gmail.com.</li>
+</ul>
+<hr />
+<h2>7. Security</h2>
+<p>We apply reasonable technical and organisational safeguards. No method of
+storage or transmission is completely secure. Practical steps you should take:</p>
+<ul>
+<li>Keep your AI provider API key private, and prefer a key with a spend limit.</li>
+<li>Only send webhooks to endpoints you control and trust.</li>
+<li>Do not expose the optional bridge server to the public internet without
+  authentication.</li>
+<li>Store exported backup files somewhere safe; they contain your CRM data.</li>
+</ul>
+<hr />
+<h2>8. Your choices</h2>
+<p>You can, at any time:</p>
+<ul>
+<li>Use the Extension without configuring AI, webhooks or the bridge server</li>
+<li>Remove a saved API key from Settings</li>
+<li>Turn off individual automations and the AI assistant</li>
+<li>Export, import or delete your data from the Backup screen</li>
+<li>Sign out, where sign-in is enabled</li>
+<li>Uninstall the Extension, removing all locally stored data</li>
+</ul>
+<hr />
+<h2>9. Children</h2>
+<p>The Extension is a business tool and is not directed to children. It is not
+intended for anyone under the age required to consent to online services in
+their jurisdiction, and we do not knowingly handle such a person's data.</p>
+<hr />
+<h2>10. Changes to this policy</h2>
+<p>We may update this policy as the Extension changes. The effective date at the
+top identifies the current version. Material changes will be reflected in the
+Extension's Chrome Web Store listing and, where appropriate, announced in the
+Extension itself.</p>
+<hr />
+<h2>11. Contact</h2>
+<ul>
+<li>Publisher: Extino Ltd</li>
+<li>Email: extinoltd@gmail.com</li>
+<li>Website: https://extino.net</li>
+</ul>
+<hr />
+<p>WhatsApp is a trademark of Meta Platforms, Inc. inboxCRM is an independent
+product and is not affiliated with, authorised by, endorsed by, sponsored by or
+otherwise connected to WhatsApp or Meta. Use of the Extension is subject to
+WhatsApp's own Terms of Service, and it is your responsibility to use it in a
+way that complies with them and with the messaging and privacy laws that apply
+to you.</p>
+<footer>© 2026 Extino Ltd · <a href="https://extino.net">extino.net</a></footer>
+</main></body></html>
