@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WA Backup — Privacy Policy</title>
+<style>
+  body{margin:0;background:#fafafa;color:#18181b;font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  main{max-width:760px;margin:0 auto;padding:48px 24px 96px;background:#fff;min-height:100vh;box-sizing:border-box}
+  h1{font-size:28px;line-height:1.3} h2{font-size:20px;margin-top:2em;border-bottom:1px solid #e9e9eb;padding-bottom:6px}
+  a{color:#0b7a45} code{background:#f4f4f5;padding:1px 5px;border-radius:4px;font-size:14px}
+  footer{margin-top:48px;font-size:13px;color:#71717a}
+</style>
+</head>
+<body><main>
+
+<h1>Privacy Policy for WA Backup</h1>
+<p><strong>Effective date:</strong> September 14, 2026</p>
+<p>WA Backup ("the Extension", "we", "us") is a browser extension published by Extino Ltd that archives the user's own WhatsApp Web chats, contacts and media. This policy explains what the Extension handles, where it is stored, and the limited circumstances in which any of it leaves your device.</p>
+
+<h2>1. Summary</h2>
+<ul>
+<li>The Extension is <strong>local-first</strong>. Your archive is stored in the browser's extension storage on your own computer.</li>
+<li>Nothing is uploaded unless you turn on <strong>Cloud backup</strong>, and what is uploaded is encrypted on your device with a key we never receive.</li>
+<li>We do not sell your data, do not use it for advertising, and run no analytics or telemetry inside the Extension.</li>
+</ul>
+
+<h2>2. Information the Extension handles</h2>
+<p>To build your archive the Extension reads, from the WhatsApp Web tab you have open: your chat list, messages (text, captions, timestamps, sender names and identifiers), contacts, and - if you enable media backup - photos, videos, voice notes and documents. This information is stored in a local database (<code>wa_archive</code>) belonging to the Extension on your computer. It is never sent to WhatsApp, to Meta, or to us by this feature.</p>
+<p>The Extension never sends messages, never marks chats as read and never changes anything in your WhatsApp account. It only reads.</p>
+
+<h2>3. Local storage and export</h2>
+<p>The archive, your settings, your device identifier and your archive encryption key are kept in Chrome's extension storage on your device. You can export selected chats to a ZIP file (HTML, JSON, CSV and media) at any time, and you can delete the entire local archive from the Extension's settings ("Wipe local archive"). Uninstalling the Extension removes its storage.</p>
+
+<h2>4. Optional cloud backup (zero-knowledge)</h2>
+<p>If you create or sign in to a WA Backup cloud account, the Extension uploads an encrypted copy of your archive to a server operated by Extino Ltd at <code>inboxcrm.extino.net</code>. Before anything leaves your device it is encrypted with AES-256-GCM using a <strong>recovery key</strong> generated on your device. The server never receives that key: it stores only ciphertext, opaque record references and timestamps, and cannot read your messages, contacts or media. We can see your account email, the amount of encrypted storage you use, and connection metadata such as IP address and time, which we use to operate the service and prevent abuse.</p>
+<p>You can disconnect the cloud account from the Extension at any time. From the web viewer's account settings you can delete every stored record, or delete the account entirely, which removes all your data from our server immediately (nightly backups containing ciphertext are retained for up to 7 days). If you lose your recovery key, the cloud copy cannot be decrypted by anyone, including us.</p>
+
+<h2>5. Account sign-in (Extino)</h2>
+<p>The Extension can offer an optional Extino account sign-in for paid features. When you use it, our account service (<code>api.extino.net</code>) receives your email address and subscription status and stores a session token in the Extension. Payments are handled by Stripe on Extino-hosted pages; the Extension never sees card details.</p>
+
+<h2>6. Permissions</h2>
+<p>The Extension requests access to <code>web.whatsapp.com</code> (to read your chats), <code>inboxcrm.extino.net</code> (cloud backup, only when enabled), <code>api.extino.net</code> (account sign-in, only when used), plus storage, alarms, tabs, side panel and identity permissions needed for those features. It requests nothing else and does not read other websites.</p>
+
+<h2>7. Data sharing and selling</h2>
+<p>We do not sell, rent or share your data with third parties. Message content is never transmitted to anyone in readable form.</p>
+
+<h2>8. Children</h2>
+<p>The Extension is intended for adults managing their own WhatsApp account and is not directed at children under 16.</p>
+
+<h2>9. Changes</h2>
+<p>We will update this page when the policy changes and update the effective date above.</p>
+
+<h2>10. Contact</h2>
+<ul><li>Publisher: Extino Ltd</li><li>Email: extinoltd@gmail.com</li><li>Website: https://extino.net</li></ul>
+
+<footer>© 2026 Extino Ltd · <a href="https://extino.net">extino.net</a></footer>
+</main></body></html>
