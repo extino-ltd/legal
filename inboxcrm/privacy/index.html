@@ -15,7 +15,7 @@
 </head>
 <body><main>
 <h1>Privacy Policy for InboxCRM</h1>
-<p><strong>Effective date:</strong> September 4, 2026</p>
+<p><strong>Effective date:</strong> September 16, 2026</p>
 <p>InboxCRM ("the Extension", "we", "us", "our") is a browser extension that
 adds customer-relationship-management tools to WhatsApp Web. This policy
 explains what information the Extension handles, where it is stored, and the
@@ -33,7 +33,9 @@ limited circumstances in which any of it leaves your device.</p>
   optional self-hosted bridge server you run, and — when account sign-in is
   enabled — our account and subscription service.</li>
 <li>We do not sell your data. We do not use it for advertising. We run no
-  analytics or telemetry inside the Extension.</li>
+  analytics or usage tracking inside the Extension. The only telemetry is
+  automatic <strong>error reports</strong> (see section 3.5), which never contain
+  message content, contact names or phone numbers.</li>
 </ul>
 <hr />
 <h2>2. Information the Extension handles</h2>
@@ -119,6 +121,17 @@ Extension's background worker connects to the address you entered (for example
 <code>http://localhost:3900</code> or a tunnel URL) and accepts send commands relayed
 through it. That server runs on infrastructure you control. We do not operate
 it and receive nothing from it.</p>
+<h3>3.5 Error reports</h3>
+<p>To find and fix bugs, the Extension sends an automatic report to our error
+monitoring provider, Sentry (Functional Software, Inc.), when it crashes or when
+a WhatsApp Web change breaks one of its features. A report contains the error
+message and stack trace, the Extension version, your browser version and
+operating system, and which part of the Extension failed. Before a report is
+sent, the Extension removes message text, contact names, phone numbers, chat
+identifiers, e-mail addresses and session tokens; long digit sequences and
+page addresses are redacted as well. Reports are not linked to your Extino
+account and are deleted by Sentry after 90 days. Error reporting is switched
+off in builds where no reporting key is configured.</p>
 <hr />
 <h2>4. How information is used</h2>
 <p>Information handled by the Extension is used only to:</p>
@@ -130,6 +143,7 @@ it and receive nothing from it.</p>
 <li>Generate AI drafts when you request them</li>
 <li>Deliver the webhook events you subscribed to</li>
 <li>Verify your subscription, when sign-in is enabled</li>
+<li>Diagnose crashes and broken features from anonymised error reports</li>
 </ul>
 <p>We do not use it for advertising, profiling, credit decisions, or sale to any
 third party.</p>
@@ -158,6 +172,11 @@ third party.</p>
 <td>Stripe (via Extino-hosted pages)</td>
 <td>Payment details you enter on their page</td>
 <td>Only on purchase</td>
+</tr>
+<tr>
+<td>Sentry (Functional Software, Inc.)</td>
+<td>Anonymised error reports: error message, stack trace, Extension and browser version</td>
+<td>Only when the Extension hits an error</td>
 </tr>
 <tr>
 <td>Endpoints you enter in Webhooks</td>
