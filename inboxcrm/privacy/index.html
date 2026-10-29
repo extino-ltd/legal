@@ -15,7 +15,7 @@
 </head>
 <body><main>
 <h1>Privacy Policy for InboxCRM</h1>
-<p><strong>Effective date:</strong> September 16, 2026</p>
+<p><strong>Effective date:</strong> October 28, 2026</p>
 <p>InboxCRM ("the Extension", "we", "us", "our") is a browser extension that
 adds customer-relationship-management tools to WhatsApp Web. This policy
 explains what information the Extension handles, where it is stored, and the
@@ -27,12 +27,30 @@ limited circumstances in which any of it leaves your device.</p>
 <li>The Extension is <strong>local-first</strong>. Your CRM data — pipelines, notes, tags,
   templates, schedules, orders and reports — is stored in Chrome's local
   extension storage on your own computer.</li>
-<li>We operate <strong>no server that receives your WhatsApp messages or CRM records</strong>.</li>
+<li>Our servers <strong>do not receive your WhatsApp conversations or your CRM
+  records</strong>. There is one exception, and it is off until you switch it on: with
+  the optional HTTP API, the messages <em>your own systems</em> ask InboxCRM to send
+  pass through our relay on their way to your browser (section 3.4). The relay
+  does not store them. If you connect an AI app such as Claude or ChatGPT to the
+  same relay and switch on reading, what it asks to read (recent chats, a chat's
+  last messages, contacts, orders and your other InboxCRM records) passes through
+  the relay to that app, again without being stored; if you also switch on
+  changes, the changes it asks for travel the same way (section 3.4). If you
+  connect an app by signing in with your InboxCRM account, the relay keeps a
+  record of that connection, never your messages (section 3.11). With the
+  optional courier updates, a courier's status
+  updates for your parcels wait on the same relay until your browser collects
+  them (section 3.8).</li>
 <li>Information leaves your device only when you choose a feature that requires
-  it: the optional AI assistant, optional webhooks you configure yourself, an
-  optional self-hosted bridge server you run, and — when account sign-in is
-  enabled — our account and subscription service.</li>
-<li>We do not sell your data. We do not use it for advertising. We run no
+  it: the optional AI assistant, optional webhooks you configure yourself, the
+  optional HTTP API, courier and cloud-backup features you connect, the
+  optional alerts to your own Telegram or WhatsApp number, the optional Meta
+  Pixel connection to your own Meta ad account, an AI app you connect
+  yourself (and the sign-in for it), and our account and subscription service.</li>
+<li>We do not sell your data. We do not use it for advertising. If you switch
+  on the optional Meta Pixel connection, your browser sends the events
+  described in section 3.10 to <strong>your own</strong> Meta ad account; we do not
+  receive them. We run no
   analytics or usage tracking inside the Extension. The only telemetry is
   automatic <strong>error reports</strong> (see section 3.5), which never contain
   message content, contact names or phone numbers.</li>
@@ -51,6 +69,9 @@ limited circumstances in which any of it leaves your device.</p>
 <li>Scheduled messages, appointments, follow-up rules, chatbot flows and
   auto-reply rules you configure</li>
 <li>Order and delivery records, and any custom contact profile fields you add</li>
+<li>Your product list and stock levels, your income and expense entries, and the
+  business profile you set up (country, currency, business type and which
+  features are switched on)</li>
 <li>Campaign recipient lists and send logs</li>
 <li>Sending-safety settings and the counters that enforce your daily and hourly
   limits</li>
@@ -62,16 +83,27 @@ limited circumstances in which any of it leaves your device.</p>
 you have open — the currently selected conversation, its participants, and
 recent message text. This is used to display the panel, to evaluate the
 automation rules you set up, and, if you use the AI assistant, to give the AI
-model context. The Extension does not create an archive copy of your chat
-history; only the CRM records you create are stored.</p>
+model context. Unless you turn on Chat backup (described at the end of this
+policy), the Extension does not keep a copy of your chat history; only the CRM
+records you create are stored.</p>
 <h3>2.3 Credentials</h3>
 <ul>
 <li>Any AI provider API key you choose to save</li>
-<li>The access token for the optional self-hosted bridge server</li>
-<li>When account sign-in is enabled: your Extino session token and cached
-  subscription status</li>
+<li>The HTTP API token the Extension generates when you switch the HTTP API on</li>
+<li>Your Extino session token and cached subscription status</li>
+<li>Courier account details you choose to connect: your Koombiyo API key and
+  its API password, or your Royal Express merchant e-mail and password, with
+  the sign-in tokens they return</li>
+<li>The key of a Telegram bot, if you connect one for alerts (section 3.9)</li>
+<li>The secret part of your courier-updates address (section 3.8)</li>
+<li>The Pixel ID and access token of your Meta Pixel, if you connect one
+  (section 3.10)</li>
 </ul>
-<p>All are stored locally. API keys are sent only to the provider they belong to.</p>
+<p>All are stored locally. API keys and courier credentials are sent only to the
+provider they belong to; they, the Telegram bot key, the Meta access token and the courier-updates
+address are left out of the backup files the Extension creates. The HTTP API token and your session token are
+presented to our relay while the HTTP API is switched on (section 3.4). The Telegram bot key is given to our
+relay only if you switch on Telegram alerts for the HTTP API (section 3.4), and only for as long as they are on.</p>
 <hr />
 <h2>3. When information leaves your device</h2>
 <h3>3.1 AI assistant (optional)</h3>
@@ -85,42 +117,150 @@ the contact or group name, and anything you typed in the composer.</p>
 <li><strong>OpenAI</strong> — <code>api.openai.com</code></li>
 <li><strong>Google Gemini</strong> — <code>generativelanguage.googleapis.com</code></li>
 <li><strong>Groq</strong> — <code>api.groq.com</code></li>
-<li><strong>Your own proxy server</strong> — the self-hosted bridge described in the
-  Extension's documentation, which forwards the request to OpenRouter using a
-  key held on your server</li>
 </ul>
 <p>Each provider processes that data under its own privacy policy and terms. We do
 not receive a copy. If you never use an AI feature, no message content leaves
 your browser.</p>
 <p>If you enable per-message AI rewording in bulk campaigns, the message text for
 each recipient is likewise sent to the provider you selected.</p>
-<h3>3.2 Account and subscription (<code>api.extino.net</code>)</h3>
-<p>When account sign-in is enabled in your build, the Extension communicates with
-our account service at <code>https://api.extino.net</code> to sign you in, read your
-profile, check your subscription status (re-checked in the background roughly
-every six hours), retrieve pricing, and open Stripe checkout or billing-portal
-sessions.</p>
+<h3>3.2 Account and subscription (<code>api.inboxcrm.extino.net</code>)</h3>
+<p>The Extension communicates with our account service at
+<code>https://api.inboxcrm.extino.net</code> to sign you in, read your profile, check your
+subscription status (re-checked in the background about once an hour), retrieve
+pricing, and open Stripe checkout or billing-portal sessions.</p>
 <p>Data handled for this purpose may include your user ID, email address, display
 name, profile image, session token and subscription state. <strong>No WhatsApp
 message content and no CRM record is ever sent to this service.</strong></p>
 <p>Payment card details are collected by <strong>Stripe</strong> on Extino-hosted billing
 pages. They never pass through the Extension, and we do not store them.</p>
+<p>Since version 2.1.3 the Extension uses an account service dedicated to
+InboxCRM at <code>api.inboxcrm.extino.net</code>, backed by its own Firebase
+project (<code>inboxcrm-5d961</code>, Google) that holds only InboxCRM
+accounts and plans. Payments are still processed by Stripe through the same
+Extino Stripe account. The service runs on Cloudflare Workers (Cloudflare,
+Inc.).</p>
 <h3>3.3 Webhooks you configure</h3>
-<p>The Extension can POST event notifications to URLs <strong>you</strong> enter in its Webhooks
-screen. Events you can subscribe to include incoming messages, quick replies
-sent, auto-attendance triggers, follow-ups dispatched, schedules fired, CRM
-updates, label changes, completed conversations and Meta-ads clicks.</p>
-<p>Depending on the event and the fields you enable, a payload may contain the
-contact's phone number, their name, and the message body — and, for the
-incoming-message event, optionally downloaded media. You choose the destination
-and are responsible for its security and for whatever lawful basis you need to
-send that data there. We never receive these payloads.</p>
-<h3>3.4 Self-hosted bridge server (optional)</h3>
-<p>If you run the optional bridge server and turn it on in the Extension, the
-Extension's background worker connects to the address you entered (for example
-<code>http://localhost:3900</code> or a tunnel URL) and accepts send commands relayed
-through it. That server runs on infrastructure you control. We do not operate
-it and receive nothing from it.</p>
+<p>The Extension can post event notifications to web addresses <strong>you</strong> enter in
+its Webhooks screen. Every event is off until you switch it on and give it an
+address, which must start with <code>https://</code>. The events are: a new incoming
+message, a customer arriving from a Facebook or Instagram ad, a quick reply
+sent, an automation reply sent, a follow-up sent, a scheduled message sent, a
+pipeline change, a WhatsApp label change, a chat marked as done, a courier
+update for a parcel, an order created and an order changed.</p>
+<p>Every event carries the WhatsApp chat identifier it is about (which contains
+the contact's phone number) and the event's own details: for a new message,
+its text, type and time; for the others, things such as the rule, stage or
+label involved. The two order events carry <strong>the whole order</strong>: its
+number, status, lines and amounts, the payment state and method, the courier
+and tracking number, your note on the order, and the customer's name, phone
+number and delivery address as written on the order. If you switch the fields on, it also carries the contact's
+name, the contact profile you filled in, your own WhatsApp number and, for the
+new-message event, the picture or file in the message (up to about 340 KB).
+The Extension sends each event straight from your browser to your address and
+keeps a list of the last 50 deliveries per event on your device. You choose
+the destination and are responsible for its security and for whatever lawful
+basis you need to send that data there. <strong>We never receive these events.</strong></p>
+<h3>3.4 HTTP API and its relay (optional)</h3>
+<p>The HTTP API lets your own systems (your website, your shop software, an
+automation tool) send a WhatsApp message through your browser with an HTTPS
+request. It is <strong>off until you switch it on</strong> in Settings. A browser cannot
+be reached from the internet directly, so the request travels through a relay
+we operate at <code>bridge.extino.net</code> (with
+<code>inboxcrm-bridge.extino.workers.dev</code> as a second address), which runs on
+Cloudflare Workers, a service of Cloudflare, Inc.</p>
+<p>While the HTTP API is on:</p>
+<ul>
+<li>The Extension keeps a connection open to the relay. To open it, the
+  Extension presents the HTTP API token it generated for you and your Extino
+  session token, which the relay may use to confirm that your plan is
+  active.</li>
+<li>When one of your systems posts a request to the relay with your token, the
+  relay passes it to your browser: the recipient's phone number, the message
+  text, and any picture or file the request contains or points to (the relay
+  downloads a file from the address your system gave it). The Extension then
+  sends the message through WhatsApp Web, within your own sending limits, and
+  returns the result (a message identifier or an error) the same way.</li>
+<li>The relay holds a request <strong>in memory only</strong>, for as long as the delivery
+  takes: at most a couple of minutes. It does not write phone numbers, message
+  text or files to storage, and its logs contain only the kind of request, the
+  result code and an error code. On disk it keeps a list of the times of your
+  requests in the last minute, which enforces the limit on requests per minute.
+  Since October 28, 2026 it also keeps which InboxCRM account (your user id, not
+  your e-mail address) your token belongs to, and, for that account, which of its
+  last 3 connections to the relay is open, so that the AI apps you connect by
+  signing in reach your browser (section 3.11).</li>
+<li>The relay never receives your incoming messages, your chats or your CRM
+  records, unless you switch on reading or changes for Claude (below). Otherwise it only
+  sees what your own systems send to it.</li>
+</ul>
+<p><strong>Use with Claude, ChatGPT and other AI apps (MCP), from version 2.2.</strong>
+The same relay also answers AI apps that support the Model Context Protocol, such
+as Anthropic's Claude (on the web, on the desktop and on mobile) and Claude Code,
+or OpenAI's ChatGPT. An app connects in one of two ways: at the address
+<code>https://bridge.extino.net/mcp</code>, after you sign in there with your
+InboxCRM account (section 3.11), or at an address that contains your token.
+Either way the requests reach your browser through the relay as described here,
+and nothing happens until you add the address to an app yourself. Through it an
+app can send messages and start workflows exactly as the HTTP API can. A separate
+switch, <em>Let Claude read my chats and orders</em>, is <strong>off until you switch it
+on</strong>. While it is on, a connected app can also ask for your
+recent chats (names, numbers, unread counts and a preview of the last message),
+the last text messages of one chat (at most 50), a search of your CRM contacts,
+a list of your orders, and the other records you keep in InboxCRM (quick
+replies, Automations, workflows, follow-ups, schedules, campaigns and recipient
+lists, the pipeline, contacts and notes, labels, reminders, orders, stock,
+expenses, the settings of Call a person and of your webhooks — webhook addresses
+are shown without anything after the host name, because they often contain a
+key — and your reports). Your browser sends each answer back through the relay
+to the app. The relay passes it on in memory and does not store or log
+it; what the app does with it afterwards is governed by that app's
+own terms: for Claude those of Anthropic, for ChatGPT those of OpenAI.</p>
+<p>A second switch, <em>Let Claude change my InboxCRM (create, edit, delete)</em>, is
+also <strong>off until you switch it on</strong>. While it is on, a connected app
+can ask your browser to create, change or delete those records, to send
+a quick reply, an order document or a campaign (always within your sending
+limits and quiet hours), and to book a courier for an order with your own
+courier account. The changes are made in your browser, by the same code as the
+pages, and stay in your browser's storage; nothing extra leaves your device
+because of this switch, except the answers to the app described above and
+the files it asks to store (a picture for a quick reply, for example), which the
+relay downloads for it or holds in memory for at most two minutes until your
+browser has fetched them. Deletes and edits that remove parts, bulk sends,
+status posts, courier bookings, a new automation without a trigger (which would
+answer every message) and changes of where your data or alerts go (a
+webhook's address, or the numbers, routes and words of <em>Call a person</em>) are only carried out
+on a second request after the app was shown what would happen. Your browser keeps a list of the last 100 changes made this way
+(<em>What Claude changed</em>), which stays on your computer and is in no backup.
+Credentials — courier passwords and keys, your Telegram bot key, your Meta Pixel
+token, your HTTP API token, AI keys — backups, your plan and sign-in, and these
+switches can never be read or changed this way. Neither switch is ever restored
+from a backup.</p>
+<p><strong>Alerts when your computer is off, from version 2.2.</strong> A request can
+only be sent while your browser is connected. Two further options, each
+<strong>off until you switch it on</strong>, let the relay tell you when a request
+could not be delivered for that reason:</p>
+<ul>
+<li><em>Send me a Telegram alert.</em> The Extension gives the relay the key of
+  the Telegram bot you connected in Call a person (section 3.9), the id of its
+  chat and your time zone. The relay keeps them in its storage until you switch
+  the alert off, switch the HTTP API off or make a new token, and uses them only
+  to send that chat a message through Telegram's Bot API: how many requests
+  failed, of which kind (text, picture, file, workflow), when, and the last four
+  digits of the last phone number. Never the message text. At most one such
+  message is sent every 30 minutes; meanwhile the relay keeps those counts, times
+  and the masked number until it has told you.</li>
+<li><em>Failure web address.</em> The relay keeps the address you type and posts
+  to it, for each request that failed this way, the error, the kind of request,
+  the phone number your own system gave and the time. Never the message text or
+  files.</li>
+</ul>
+<p>The relay's logs do not contain the bot key, the chat, the address or any
+phone number.</p>
+<p>The token works like a password: anyone who has it can send messages from your
+WhatsApp number. You can replace it or switch the HTTP API off at any time in
+Settings; the connection closes at once. Under <em>Advanced</em> you can point
+the Extension at a relay you run yourself instead of ours; in that case
+nothing passes through our relay.</p>
 <h3>3.5 Error reports</h3>
 <p>To find and fix bugs, the Extension sends an automatic report to our error
 monitoring provider, Sentry (Functional Software, Inc.), when it crashes or when
@@ -132,6 +272,159 @@ identifiers, e-mail addresses and session tokens; long digit sequences and
 page addresses are redacted as well. Reports are not linked to your Extino
 account and are deleted by Sentry after 90 days. Error reporting is switched
 off in builds where no reporting key is configured.</p>
+<h3>3.6 Courier integrations (optional, Sri Lanka)</h3>
+<p>If you connect a courier account in the Order manager and press <em>Send to
+Koombiyo</em> or <em>Send to Royal Express</em> on an order, the Extension sends
+that order's delivery details to the courier so they can collect and deliver
+the parcel: the customer's name, phone number and delivery address (town and
+district), your order number, a short description of the package, its value,
+the amount to collect on delivery, and the courier waybill number. To do this it
+signs in to the courier with the account details you saved. It also queries the courier
+for the parcel's tracking status, shipping labels and, if you ask, the deletion
+of a parcel. Koombiyo Delivery is operated by Koombiyo Delivery (Pvt) Ltd; Royal
+Express is reached through its delivery-management platform, Curfox. Nothing is
+sent to a courier until you connect the account and press the send button on a
+specific order, and the courier options only appear when your business country
+is Sri Lanka.</p>
+<h3>3.7 Address data for your country</h3>
+<p>To recognise addresses in chats, the Extension downloads a public list of
+regions and towns for the country you chose during setup from
+<code>api.inboxcrm.extino.net</code> (for example <code>/geo/lk.json</code>). The request
+contains only the country code; no chat content or personal data is sent. The
+list is cached on your device for seven days. For Sri Lanka a copy is built into
+the Extension, so it works without this download.</p>
+<h3>3.8 Courier updates (optional)</h3>
+<p>If you switch on <em>Courier updates</em> in the Order manager, the Extension
+shows you an address on our relay (<code>bridge.extino.net/hook/…</code>) that
+you give to your courier. When the courier reports that a parcel moved, it
+sends the update to that address, and the Extension uses it to update the
+matching order on your device.</p>
+<ul>
+<li>The relay stores each update as the courier sent it — typically the waybill
+  number, the new status, the date and the delivery charge — <strong>until your
+  browser collects it</strong>, and for at most 7 days. It is then deleted. At
+  most 500 updates are held for one address.</li>
+<li>The relay does not read or use the content of an update, and its logs
+  contain only the kind of request and the result code.</li>
+<li>The address contains a secret. Anyone who has the address can send updates
+  to your orders, but cannot read anything and cannot send a message. You can
+  replace the address or switch courier updates off at any time; switching
+  off deletes anything still waiting.</li>
+<li>To keep the connection to the relay open, the Extension presents your
+  Extino session token, as for the HTTP API (section 3.4), and the relay notes
+  which InboxCRM account the token belongs to, as described there. The HTTP API
+  itself does not have to be switched on.</li>
+</ul>
+<h3>3.9 Alerts when a customer needs a person (optional)</h3>
+<p><em>Call a person</em> is off until you switch it on. It tells you when an
+automated reply cannot continue: for example the customer asks for a person,
+or a message could not be sent. An alert contains the <strong>customer's name,
+phone number and last message</strong>, and goes only where you choose:</p>
+<ul>
+<li><strong>Telegram.</strong> The Extension sends the alert from your browser
+  straight to Telegram's Bot API (<code>api.telegram.org</code>), using the key
+  of a bot you created yourself, to the Telegram chat you connected. Our
+  servers are not involved. Telegram processes it under its own policy. (The
+  separate HTTP API alerts of section 3.4 do use our relay, and only if you
+  switch them on.)</li>
+<li><strong>WhatsApp.</strong> The Extension sends the alert as a WhatsApp
+  message from your own WhatsApp account to the phone number you typed.</li>
+<li><strong>Sound.</strong> A chime and a desktop notification on your own
+  computer. Nothing leaves your device.</li>
+</ul>
+<h3>3.10 Meta Pixel (optional)</h3>
+<p><em>Meta Pixel</em> is off until you enter the Pixel ID and access token of
+<strong>your own</strong> Meta Pixel and switch it on. It is for businesses that
+advertise on Facebook or Instagram and want Meta to know which of their
+WhatsApp chats became sales. While it is on, the Extension sends two kinds of
+event from your browser straight to Meta's Conversions API
+(<code>graph.facebook.com</code>), using your token:</p>
+<ul>
+<li><strong>Lead</strong> — when a customer who came from one of your Facebook or
+  Instagram ads writes to you. Sent once per customer and ad.</li>
+<li><strong>Purchase</strong> — when an order reaches the point you chose
+  (confirmed, paid or delivered). Sent once per order.</li>
+</ul>
+<p>Each event contains the time and <strong>a SHA-256 hash of the customer's phone
+number</strong>, computed in your browser; the number itself is not sent. A
+Purchase also contains the order's value, currency, order number and number of
+items. Names, message text, addresses and the items bought are not sent. Meta
+uses the hash to recognise the customer's Facebook or Instagram account and
+uses the events for the measurement and delivery of <strong>your</strong>
+advertising, under its own terms and policies.</p>
+<ul>
+<li>Our servers are not involved and we never receive these events.</li>
+<li>An event that could not be delivered waits on your device for up to 7 days
+  and is then dropped. A list of the last 30 results is kept on your device; it
+  contains no token and no hash.</li>
+<li>You decide to share these events with Meta, and you are responsible for
+  telling your customers and for whatever lawful basis or consent that
+  requires where you and they are.</li>
+<li>Switching Meta Pixel off, or removing the token, stops the events at
+  once. A Purchase already sent cannot be withdrawn by the Extension.</li>
+</ul>
+<h3>3.11 Connecting an AI app by signing in (optional, from version 2.2)</h3>
+<p>You can connect Claude, Claude Code, ChatGPT or another app that supports the
+Model Context Protocol to the relay's address
+<code>https://bridge.extino.net/mcp</code> by signing in with your InboxCRM
+account, without copying a token. Nothing described here happens until you add
+that address to an app yourself and start its sign-in.</p>
+<ul>
+<li><strong>Sign-in.</strong> The app opens a sign-in page that our relay serves
+  at <code>bridge.extino.net</code>. The page signs you in with Firebase
+  Authentication (Google), in the Firebase project that holds InboxCRM accounts
+  (<code>inboxcrm-5d961</code>, section 3.2): with your Google account, or with
+  your e-mail address and password, which go to Firebase and not to our relay.
+  The page then hands the relay a short-lived proof of the sign-in from Firebase
+  (an ID token). The relay checks it and does not keep it. Only an account with a
+  verified e-mail address can connect an app; if yours is not verified yet, the
+  page asks Firebase to send you a verification e-mail. While a sign-in is in
+  progress, a cookie that holds a random value ties it to your browser. A sign-in
+  must be finished within 15 minutes, and nothing is stored for it before you
+  press <em>Allow</em>.</li>
+<li><strong>Consent.</strong> A second page names the app, the account you
+  signed in with, the address your browser goes back to and what the app will be
+  able to do. <em>Allow</em> gives the app its own access token, valid for 1 hour,
+  and a refresh token, valid for 60 days and replaced each time it is used.
+  <em>Cancel</em> connects nothing.</li>
+<li><strong>What the relay stores</strong>, per InboxCRM account (your user id):
+  for each connected app, its name and identifier, the host its sign-in returns
+  to (for example <code>claude.ai</code> or <code>chatgpt.com</code>), the scope,
+  when it was connected and last used, and SHA-256 hashes of its tokens and of the
+  single-use sign-in codes; and the last 3 connections of your InboxCRM to the
+  relay (the ids of their records on the relay, not your token), with when each
+  connected and whether it is still open. For each HTTP API token it stores the
+  account the token belongs to. It also keeps the apps that registered themselves
+  with it and the descriptions that apps publish about themselves (names and
+  return addresses), which contain nothing about you.</li>
+<li><strong>What it does not store:</strong> your e-mail address, your password,
+  the Firebase ID token, a token or code in readable form, your IP address, or any
+  message, chat, contact or order. Requests from a connected app are handled as
+  described in section 3.4: what they read or change passes through in memory
+  only, within your two switches.</li>
+<li><strong>How long.</strong> A connected app stays connected until you
+  disconnect it, or until it has not renewed its sign-in for 60 days; its record
+  is then deleted the next time the relay handles a sign-in for your account or
+  InboxCRM shows your connected apps. A sign-in code expires after 5 minutes. The
+  hashes of used refresh tokens are kept until those tokens would have expired,
+  so that a stolen one is recognised. At most 20 apps are kept per account; a new
+  one replaces the one used least recently. The list of connections holds the
+  last 3 and changes as your browsers connect. The link between a token and your
+  account is not removed when you make a new token or switch the HTTP API off;
+  you can ask us to delete it (section 11).</li>
+<li><strong>Your control.</strong> The Claude tab of the HTTP API settings in
+  InboxCRM lists the apps connected to your account under <em>Connected
+  apps</em>. <em>Disconnect</em> deletes an app's connection, and its access ends
+  at once. The two switches of section 3.4 decide what any connected app may
+  read or change.</li>
+<li><strong>The demo account.</strong> For the reviewers of app directories (such
+  as Anthropic's directory of Claude connectors and OpenAI's ChatGPT app
+  directory), the relay has a demo account, <code>review@inboxcrm.net</code>.
+  Signing in with it reaches a sample shop with made-up data that runs on our
+  relay, never a browser or a WhatsApp account, and nothing done there is sent
+  anywhere. Each connected app gets its own copy, which goes back to the sample
+  every 24 hours; a copy that nobody uses for 3 days is emptied.</li>
+</ul>
 <hr />
 <h2>4. How information is used</h2>
 <p>Information handled by the Extension is used only to:</p>
@@ -142,11 +435,16 @@ off in builds where no reporting key is configured.</p>
 <li>Apply the sending-safety limits you configure</li>
 <li>Generate AI drafts when you request them</li>
 <li>Deliver the webhook events you subscribed to</li>
-<li>Verify your subscription, when sign-in is enabled</li>
+<li>Send Lead and Purchase events to your own Meta Pixel, if you switched that on</li>
+<li>Pass on the messages your own systems send through the HTTP API</li>
+<li>Sign you in to the AI apps you connect, and pass their requests to your browser</li>
+<li>Verify your subscription</li>
 <li>Diagnose crashes and broken features from anonymised error reports</li>
 </ul>
 <p>We do not use it for advertising, profiling, credit decisions, or sale to any
-third party.</p>
+third party. The Meta Pixel connection (section 3.10) serves your own
+advertising account: your browser sends those events to Meta on your
+instruction, and they never reach us.</p>
 <hr />
 <h2>5. Third parties</h2>
 <table>
@@ -164,9 +462,9 @@ third party.</p>
 <td>Only when you use an AI feature</td>
 </tr>
 <tr>
-<td>Extino account service (<code>api.extino.net</code>)</td>
+<td>Extino account service for InboxCRM (<code>api.inboxcrm.extino.net</code>, Firebase project <code>inboxcrm-5d961</code> on Google, hosted on Cloudflare Workers)</td>
 <td>Account identity, session token, subscription status</td>
-<td>Only when sign-in is enabled</td>
+<td>When you sign in and while you are signed in</td>
 </tr>
 <tr>
 <td>Stripe (via Extino-hosted pages)</td>
@@ -179,9 +477,59 @@ third party.</p>
 <td>Only when the Extension hits an error</td>
 </tr>
 <tr>
+<td>Koombiyo Delivery (Pvt) Ltd</td>
+<td>Delivery details of an order you send them: customer name, phone, address, order number, package description, cash-on-delivery amount; tracking and label requests by waybill</td>
+<td>Only when you connect a Koombiyo account and send an order</td>
+</tr>
+<tr>
+<td>Royal Express (via the Curfox delivery platform)</td>
+<td>Your merchant sign-in, then the same delivery details as above for orders you send them</td>
+<td>Only when you connect a Royal Express account and send an order</td>
+</tr>
+<tr>
+<td>Extino address data (<code>api.inboxcrm.extino.net/geo</code>)</td>
+<td>Only the country code, to download a public list of towns</td>
+<td>When you use "Create order from chat" for a country other than Sri Lanka</td>
+</tr>
+<tr>
+<td>Telegram (Telegram FZ-LLC), through a bot you created</td>
+<td>The alert text: a customer's name, phone number and last message; for HTTP API alerts (sent by our relay), only counts, kinds, times and the last digits of a number</td>
+<td>Only when you connect a Telegram bot in Call a person and an alert is raised, or when you switch on Telegram alerts for the HTTP API and a request fails because your computer is off</td>
+</tr>
+<tr>
+<td>Meta Platforms (Conversions API, <code>graph.facebook.com</code>), through your own Pixel and access token</td>
+<td>A SHA-256 hash of a customer's phone number and the time of the event; for a purchase also the order's value, currency, order number and number of items</td>
+<td>Only when you switch on Meta Pixel, and a customer from an ad writes to you or an order reaches the point you chose</td>
+</tr>
+<tr>
 <td>Endpoints you enter in Webhooks</td>
 <td>Event payloads you configured</td>
 <td>Only for events you subscribed to</td>
+</tr>
+<tr>
+<td>Extino HTTP API relay (<code>bridge.extino.net</code>), hosted on Cloudflare Workers (Cloudflare, Inc.)</td>
+<td>Your HTTP API token and session token, and it keeps the InboxCRM account (user id) the token belongs to; in transit, the phone number, text and files of the messages your own systems ask to send, and the result of each; if you switch on alerts for when your computer is off, also your Telegram bot key, its chat id, your time zone and your failure web address, kept until you switch them off</td>
+<td>Only while you have the HTTP API switched on</td>
+</tr>
+<tr>
+<td>The same relay, for courier updates</td>
+<td>Your session token, and it keeps the InboxCRM account (user id) the token belongs to; the status updates a courier sends to your address (waybill number, status, date, delivery charge), stored until your browser collects them, at most 7 days</td>
+<td>Only while you have Courier updates switched on</td>
+</tr>
+<tr>
+<td>The same relay, for the AI apps you connect by signing in (section 3.11)</td>
+<td>A Firebase sign-in proof, checked and not kept; for each connected app its name, return host, times and hashes of its tokens; the last 3 connections of your InboxCRM to the relay</td>
+<td>Only when you connect an app by signing in; kept until you disconnect it, or until it goes 60 days without renewing its sign-in</td>
+</tr>
+<tr>
+<td>Google (Firebase Authentication, project <code>inboxcrm-5d961</code>), on the relay's sign-in page</td>
+<td>Your Google sign-in, or your e-mail address and password, to sign you in; a verification or password-reset e-mail when the page sends you one</td>
+<td>Only when you sign in there to connect an AI app</td>
+</tr>
+<tr>
+<td>An AI app you connect to the relay (for example Claude or Claude Code, by Anthropic, or ChatGPT, by OpenAI)</td>
+<td>The results of what it asks for: whether a message was sent; only with <em>Let Claude read my chats and orders</em> switched on, your recent chats, a chat's last text messages, contact search results, your orders and your other InboxCRM records; only with <em>Let Claude change my InboxCRM</em> switched on, the outcome of the changes it asks for</td>
+<td>Only after you add the relay's address to the app yourself; reading and changes only while their switches are on</td>
 </tr>
 </tbody>
 </table>
@@ -200,7 +548,29 @@ required by law or to protect users and the service.</p>
   keep or delete.</li>
 <li><strong>AI providers</strong> retain prompts according to their own policies. Review the
   policy of whichever provider you configure.</li>
-<li><strong>Account records</strong>, where sign-in is enabled, may be retained for account,
+<li><strong>The HTTP API relay</strong> keeps no message, phone number or file after a
+  request is delivered or fails. The per-minute request times it stores are
+  replaced as new requests arrive. If you switch on alerts for when your
+  computer is off, it keeps your Telegram bot key, chat id, time zone and
+  failure web address until you switch them off, switch the HTTP API off or make
+  a new token; the counts and masked number of failures waiting for the next
+  Telegram alert are deleted once that alert is sent. What an AI app reads
+  through the relay is never stored. The InboxCRM account a token belongs to is
+  kept with that token's record on the relay; you can ask us to delete it.</li>
+<li><strong>Connected AI apps</strong> (section 3.11): the record of an app stays
+  on the relay until you disconnect it, or until the app goes 60 days without
+  renewing its sign-in. Hashes of used refresh tokens are kept until those tokens
+  would have expired, at most 60 days. The relay keeps the last 3 connections of
+  your InboxCRM and replaces older ones as new ones come. A demo copy for
+  reviewers goes back to its sample every 24 hours and is emptied after 3 days
+  without use.</li>
+<li><strong>Webhook deliveries</strong>: the list of recent deliveries is stored on your
+  device and removed with the event or with the Extension. What the receiving
+  system keeps is up to its operator.</li>
+<li><strong>Meta Pixel events</strong>: the list of recent results and any event still
+  waiting are stored on your device and removed with the Extension. What Meta
+  keeps is governed by its own terms.</li>
+<li><strong>Account records</strong> may be retained for account,
   billing, fraud-prevention, legal and support purposes. To request access to
   or deletion of that account data, contact extinoltd@gmail.com.</li>
 </ul>
@@ -211,19 +581,28 @@ storage or transmission is completely secure. Practical steps you should take:</
 <ul>
 <li>Keep your AI provider API key private, and prefer a key with a spend limit.</li>
 <li>Only send webhooks to endpoints you control and trust.</li>
-<li>Do not expose the optional bridge server to the public internet without
-  authentication.</li>
+<li>Treat your HTTP API token like a password. Give it only to systems you
+  trust, and make a new one in Settings if it may have leaked.</li>
+<li>Treat your Meta access token like a password. If it may have leaked, make
+  a new one in Meta Events Manager and remove the old one.</li>
+<li>On the InboxCRM page that asks you to allow an AI app, press <em>Allow</em>
+  only if you started the connection yourself just now, and disconnect apps you
+  no longer use.</li>
 <li>Store exported backup files somewhere safe; they contain your CRM data.</li>
 </ul>
 <hr />
 <h2>8. Your choices</h2>
 <p>You can, at any time:</p>
 <ul>
-<li>Use the Extension without configuring AI, webhooks or the bridge server</li>
+<li>Use the Extension without configuring AI, webhooks, the HTTP API or Meta Pixel</li>
+<li>Switch a webhook or the HTTP API off again, or make a new HTTP API token</li>
+<li>Switch Claude's reading or changes off, or disconnect an AI app under
+  <em>Connected apps</em> on the Claude tab of the HTTP API settings</li>
+<li>Switch Meta Pixel off, or remove its token</li>
 <li>Remove a saved API key from Settings</li>
 <li>Turn off individual automations and the AI assistant</li>
 <li>Export, import or delete your data from the Backup screen</li>
-<li>Sign out, where sign-in is enabled</li>
+<li>Sign out</li>
 <li>Uninstall the Extension, removing all locally stored data</li>
 </ul>
 <hr />
