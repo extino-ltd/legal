@@ -15,7 +15,7 @@
 </head>
 <body><main>
 <h1>Privacy Policy for InboxCRM</h1>
-<p><strong>Effective date:</strong> October 28, 2026</p>
+<p><strong>Effective date:</strong> October 29, 2026</p>
 <p>InboxCRM ("the Extension", "we", "us", "our") is a browser extension that
 adds customer-relationship-management tools to WhatsApp Web. This policy
 explains what information the Extension handles, where it is stored, and the
@@ -31,13 +31,16 @@ limited circumstances in which any of it leaves your device.</p>
   records</strong>. There is one exception, and it is off until you switch it on: with
   the optional HTTP API, the messages <em>your own systems</em> ask InboxCRM to send
   pass through our relay on their way to your browser (section 3.4). The relay
-  does not store them. If you connect an AI app such as Claude or ChatGPT to the
-  same relay and switch on reading, what it asks to read (recent chats, a chat's
-  last messages, contacts, orders and your other InboxCRM records) passes through
-  the relay to that app, again without being stored; if you also switch on
-  changes, the changes it asks for travel the same way (section 3.4). If you
-  connect an app by signing in with your InboxCRM account, the relay keeps a
-  record of that connection, never your messages (section 3.11). With the
+  does not store them. If you connect an AI app such as Claude, ChatGPT or Gemini
+  to the same relay (this needs the switch <em>Turn on MCP</em>) and switch on
+  reading, what it asks to read (recent chats, a chat's last messages, contacts,
+  orders and your other InboxCRM records) passes through the relay to that app,
+  again without being stored; if you also switch on changes, the changes it asks
+  for travel the same way (section 3.4). If you connect an app by signing in with
+  your InboxCRM account, the relay keeps a record of that connection, never your
+  messages (section 3.11). So that an app can tell you why InboxCRM does not
+  connect, the relay also keeps a few facts about your browser's connections:
+  versions, times and reason codes (section 3.4). With the
   optional courier updates, a courier's status
   updates for your parcels wait on the same relay until your browser collects
   them (section 3.8).</li>
@@ -89,7 +92,8 @@ records you create are stored.</p>
 <h3>2.3 Credentials</h3>
 <ul>
 <li>Any AI provider API key you choose to save</li>
-<li>The HTTP API token the Extension generates when you switch the HTTP API on</li>
+<li>The HTTP API token the Extension generates when you first switch on the HTTP
+  API, <em>Turn on MCP</em> or courier updates (all three use the same token)</li>
 <li>Your Extino session token and cached subscription status</li>
 <li>Courier account details you choose to connect: your Koombiyo API key and
   its API password, or your Royal Express merchant e-mail and password, with
@@ -102,7 +106,8 @@ records you create are stored.</p>
 <p>All are stored locally. API keys and courier credentials are sent only to the
 provider they belong to; they, the Telegram bot key, the Meta access token and the courier-updates
 address are left out of the backup files the Extension creates. The HTTP API token and your session token are
-presented to our relay while the HTTP API is switched on (section 3.4). The Telegram bot key is given to our
+presented to our relay while the HTTP API, <em>Turn on MCP</em> or courier updates is switched on (sections 3.4
+and 3.8). The Telegram bot key is given to our
 relay only if you switch on Telegram alerts for the HTTP API (section 3.4), and only for as long as they are on.</p>
 <hr />
 <h2>3. When information leaves your device</h2>
@@ -189,20 +194,55 @@ Cloudflare Workers, a service of Cloudflare, Inc.</p>
   your e-mail address) your token belongs to, and, for that account, which of its
   last 3 connections to the relay is open, so that the AI apps you connect by
   signing in reach your browser (section 3.11).</li>
+<li><strong>Connection records for troubleshooting</strong>, since October 29,
+  2026, so that an AI app you connect can tell you why InboxCRM does not connect
+  (below). For every connection of your browser, whichever switch opened it (the
+  HTTP API, <em>Turn on MCP</em> or courier updates), the relay keeps with each of
+  those last 3 connections the Extension version it reported, whether that version
+  has the <em>Turn on MCP</em> switch, and why it last disconnected when the
+  Extension said so (everything that kept it open was switched off, you signed
+  out, or the plan is not active). For your account it keeps the time and reason
+  of the newest connection it turned away (no active plan, or a token of another
+  InboxCRM account), and for your token the same (no valid sign-in, no active
+  plan, or a token of another InboxCRM account). The same reason is written at
+  most once every 10 minutes, and each record is replaced by a newer one. These
+  records hold times, version numbers and reason codes only: no phone number,
+  message, name, e-mail address or token.</li>
 <li>The relay never receives your incoming messages, your chats or your CRM
-  records, unless you switch on reading or changes for Claude (below). Otherwise it only
+  records, unless you switch on reading or changes for an AI app (below). Otherwise it only
   sees what your own systems send to it.</li>
 </ul>
-<p><strong>Use with Claude, ChatGPT and other AI apps (MCP), from version 2.2.</strong>
+<p><strong>Use with Claude, ChatGPT, Gemini and other AI apps (MCP), from version 2.2.</strong>
 The same relay also answers AI apps that support the Model Context Protocol, such
 as Anthropic's Claude (on the web, on the desktop and on mobile) and Claude Code,
-or OpenAI's ChatGPT. An app connects in one of two ways: at the address
-<code>https://bridge.extino.net/mcp</code>, after you sign in there with your
-InboxCRM account (section 3.11), or at an address that contains your token.
-Either way the requests reach your browser through the relay as described here,
-and nothing happens until you add the address to an app yourself. Through it an
-app can send messages and start workflows exactly as the HTTP API can. A separate
-switch, <em>Let Claude read my chats and orders</em>, is <strong>off until you switch it
+OpenAI's ChatGPT, or Google's Gemini and Gemini CLI. Three switches in the
+Extension's MCP window (on WhatsApp Web, the <em>MCP</em> button in the InboxCRM
+rail; or the <em>MCP</em> card on the Settings page) decide what an app may do.
+The first, <em>Turn on MCP</em>, is MCP's own switch. On a new install it is
+<strong>off until you switch it on</strong>; if you update from version 2.1 with
+the HTTP API switched on, it starts on, so that a tool that already uses your
+token keeps working, and the other two switches start off. While it is on, the
+Extension keeps the connection to the relay open as described above, presenting
+the same HTTP API token and session token, also while the HTTP API is off. While
+it is off, the Extension refuses every request from an AI app except the
+connection check described below. An app connects in
+one of two ways: at the address <code>https://bridge.extino.net/mcp</code>, after
+you sign in there with your InboxCRM account (section 3.11), which needs only
+<em>Turn on MCP</em>; or at an address that contains your token, which works only
+while both <em>Turn on MCP</em> and the HTTP API are switched on, so switching the
+HTTP API off stops everyone who has the token. Either way the requests reach your
+browser through the relay as described here, and nothing happens until you add
+the address to an app yourself. Through it an app can send messages and start
+workflows exactly as the HTTP API can.</p>
+<p>Whatever the switches say, a connected app can check the connection and ask
+why InboxCRM does not connect. For that, your browser (when it is connected)
+answers with yes or no whether WhatsApp Web is ready, whether you are signed in
+with an active plan and which of the three switches and the HTTP API are on,
+together with the Extension's version and your local time and time zone; the
+relay adds the connection records described above for your account (or, at a
+token address, for that token). These answers contain no message, name, phone
+number or e-mail address, and nothing is stored when an app asks.</p>
+<p>The second switch, <em>Let Claude read my chats and orders</em>, is <strong>off until you switch it
 on</strong>. While it is on, a connected app can also ask for your
 recent chats (names, numbers, unread counts and a preview of the last message),
 the last text messages of one chat (at most 50), a search of your CRM contacts,
@@ -214,8 +254,9 @@ are shown without anything after the host name, because they often contain a
 key — and your reports). Your browser sends each answer back through the relay
 to the app. The relay passes it on in memory and does not store or log
 it; what the app does with it afterwards is governed by that app's
-own terms: for Claude those of Anthropic, for ChatGPT those of OpenAI.</p>
-<p>A second switch, <em>Let Claude change my InboxCRM (create, edit, delete)</em>, is
+own terms: for Claude those of Anthropic, for ChatGPT those of OpenAI, for Gemini
+those of Google.</p>
+<p>The third switch, <em>Let Claude change my InboxCRM (create, edit, delete)</em>, is
 also <strong>off until you switch it on</strong>. While it is on, a connected app
 can ask your browser to create, change or delete those records, to send
 a quick reply, an order document or a campaign (always within your sending
@@ -232,9 +273,9 @@ webhook's address, or the numbers, routes and words of <em>Call a person</em>) a
 on a second request after the app was shown what would happen. Your browser keeps a list of the last 100 changes made this way
 (<em>What Claude changed</em>), which stays on your computer and is in no backup.
 Credentials — courier passwords and keys, your Telegram bot key, your Meta Pixel
-token, your HTTP API token, AI keys — backups, your plan and sign-in, and these
-switches can never be read or changed this way. Neither switch is ever restored
-from a backup.</p>
+token, your HTTP API token, AI keys — backups, your plan and sign-in, the HTTP
+API's switch and these three switches can never be read or changed this way. None
+of the three switches is ever restored from a backup.</p>
 <p><strong>Alerts when your computer is off, from version 2.2.</strong> A request can
 only be sent while your browser is connected. Two further options, each
 <strong>off until you switch it on</strong>, let the relay tell you when a request
@@ -258,7 +299,8 @@ could not be delivered for that reason:</p>
 phone number.</p>
 <p>The token works like a password: anyone who has it can send messages from your
 WhatsApp number. You can replace it or switch the HTTP API off at any time in
-Settings; the connection closes at once. Under <em>Advanced</em> you can point
+Settings; requests with the token stop at once, and the connection closes unless
+<em>Turn on MCP</em> or courier updates keep it open for their own use. Under <em>Advanced</em> you can point
 the Extension at a relay you run yourself instead of ours; in that case
 nothing passes through our relay.</p>
 <h3>3.5 Error reports</h3>
@@ -312,8 +354,9 @@ matching order on your device.</p>
   off deletes anything still waiting.</li>
 <li>To keep the connection to the relay open, the Extension presents your
   Extino session token, as for the HTTP API (section 3.4), and the relay notes
-  which InboxCRM account the token belongs to, as described there. The HTTP API
-  itself does not have to be switched on.</li>
+  which InboxCRM account the token belongs to and keeps the connection records
+  for troubleshooting, as described there. The HTTP API itself does not have to
+  be switched on.</li>
 </ul>
 <h3>3.9 Alerts when a customer needs a person (optional)</h3>
 <p><em>Call a person</em> is off until you switch it on. It tells you when an
@@ -341,10 +384,18 @@ event from your browser straight to Meta's Conversions API
 (<code>graph.facebook.com</code>), using your token:</p>
 <ul>
 <li><strong>Lead</strong> — when a customer who came from one of your Facebook or
-  Instagram ads writes to you. Sent once per customer and ad.</li>
+  Instagram ads writes to you. Sent once per customer and ad. You can also send a
+  Lead yourself with <em>Send Lead</em> in that customer's chat (the Orders tab of
+  the chat tools); that is sent at most once per chat, and not when a Lead for
+  that customer was already sent.</li>
 <li><strong>Purchase</strong> — when an order reaches the point you chose
-  (confirmed, paid or delivered). Sent once per order.</li>
+  (confirmed, paid or delivered), or when you press <em>Send Purchase now</em> on
+  the order in its chat. Sent once per order either way.</li>
 </ul>
+<p>An event you send with one of these buttons carries the same data as one the
+Extension sends by itself, described below, with the time you pressed the
+button. The buttons are only offered while that event is switched on, and group
+chats send nothing.</p>
 <p>Each event contains the time and <strong>a SHA-256 hash of the customer's phone
 number</strong>, computed in your browser; the number itself is not sent. A
 Purchase also contains the order's value, currency, order number and number of
@@ -364,8 +415,8 @@ advertising, under its own terms and policies.</p>
   once. A Purchase already sent cannot be withdrawn by the Extension.</li>
 </ul>
 <h3>3.11 Connecting an AI app by signing in (optional, from version 2.2)</h3>
-<p>You can connect Claude, Claude Code, ChatGPT or another app that supports the
-Model Context Protocol to the relay's address
+<p>You can connect Claude, Claude Code, ChatGPT, Gemini, Gemini CLI or another app
+that supports the Model Context Protocol to the relay's address
 <code>https://bridge.extino.net/mcp</code> by signing in with your InboxCRM
 account, without copying a token. Nothing described here happens until you add
 that address to an app yourself and start its sign-in.</p>
@@ -393,7 +444,8 @@ that address to an app yourself and start its sign-in.</p>
   when it was connected and last used, and SHA-256 hashes of its tokens and of the
   single-use sign-in codes; and the last 3 connections of your InboxCRM to the
   relay (the ids of their records on the relay, not your token), with when each
-  connected and whether it is still open. For each HTTP API token it stores the
+  connected and whether it is still open, with the connection records for
+  troubleshooting of section 3.4. For each HTTP API token it stores the
   account the token belongs to. It also keeps the apps that registered themselves
   with it and the descriptions that apps publish about themselves (names and
   return addresses), which contain nothing about you.</li>
@@ -401,7 +453,7 @@ that address to an app yourself and start its sign-in.</p>
   the Firebase ID token, a token or code in readable form, your IP address, or any
   message, chat, contact or order. Requests from a connected app are handled as
   described in section 3.4: what they read or change passes through in memory
-  only, within your two switches.</li>
+  only, within your switches.</li>
 <li><strong>How long.</strong> A connected app stays connected until you
   disconnect it, or until it has not renewed its sign-in for 60 days; its record
   is then deleted the next time the relay handles a sign-in for your account or
@@ -409,14 +461,17 @@ that address to an app yourself and start its sign-in.</p>
   hashes of used refresh tokens are kept until those tokens would have expired,
   so that a stolen one is recognised. At most 20 apps are kept per account; a new
   one replaces the one used least recently. The list of connections holds the
-  last 3 and changes as your browsers connect. The link between a token and your
-  account is not removed when you make a new token or switch the HTTP API off;
-  you can ask us to delete it (section 11).</li>
-<li><strong>Your control.</strong> The Claude tab of the HTTP API settings in
-  InboxCRM lists the apps connected to your account under <em>Connected
+  last 3 and changes as your browsers connect; the version and the reason kept
+  with a connection go with it. The newest turned-away connection is kept until a
+  newer one replaces it. The link between a token and your account, and the
+  connection records, are not removed when you make a new token or switch the
+  HTTP API off; you can ask us to delete them (section 11).</li>
+<li><strong>Your control.</strong> The MCP window in InboxCRM (on WhatsApp Web,
+  the <em>MCP</em> button in the rail; or the <em>MCP</em> card on the Settings
+  page) lists the apps connected to your account under <em>Connected
   apps</em>. <em>Disconnect</em> deletes an app's connection, and its access ends
-  at once. The two switches of section 3.4 decide what any connected app may
-  read or change.</li>
+  at once. The three switches of section 3.4 decide whether any connected app
+  may reach InboxCRM and what it may read or change.</li>
 <li><strong>The demo account.</strong> For the reviewers of app directories (such
   as Anthropic's directory of Claude connectors and OpenAI's ChatGPT app
   directory), the relay has a demo account, <code>review@inboxcrm.net</code>.
@@ -437,7 +492,8 @@ that address to an app yourself and start its sign-in.</p>
 <li>Deliver the webhook events you subscribed to</li>
 <li>Send Lead and Purchase events to your own Meta Pixel, if you switched that on</li>
 <li>Pass on the messages your own systems send through the HTTP API</li>
-<li>Sign you in to the AI apps you connect, and pass their requests to your browser</li>
+<li>Sign you in to the AI apps you connect, pass their requests to your browser,
+  and tell them why InboxCRM does not connect when it does not</li>
 <li>Verify your subscription</li>
 <li>Diagnose crashes and broken features from anonymised error reports</li>
 </ul>
@@ -499,7 +555,7 @@ instruction, and they never reach us.</p>
 <tr>
 <td>Meta Platforms (Conversions API, <code>graph.facebook.com</code>), through your own Pixel and access token</td>
 <td>A SHA-256 hash of a customer's phone number and the time of the event; for a purchase also the order's value, currency, order number and number of items</td>
-<td>Only when you switch on Meta Pixel, and a customer from an ad writes to you or an order reaches the point you chose</td>
+<td>Only when you switch on Meta Pixel, and a customer from an ad writes to you, an order reaches the point you chose, or you press <em>Send Lead</em> or <em>Send Purchase now</em> in a chat</td>
 </tr>
 <tr>
 <td>Endpoints you enter in Webhooks</td>
@@ -510,6 +566,16 @@ instruction, and they never reach us.</p>
 <td>Extino HTTP API relay (<code>bridge.extino.net</code>), hosted on Cloudflare Workers (Cloudflare, Inc.)</td>
 <td>Your HTTP API token and session token, and it keeps the InboxCRM account (user id) the token belongs to; in transit, the phone number, text and files of the messages your own systems ask to send, and the result of each; if you switch on alerts for when your computer is off, also your Telegram bot key, its chat id, your time zone and your failure web address, kept until you switch them off</td>
 <td>Only while you have the HTTP API switched on</td>
+</tr>
+<tr>
+<td>The same relay, for MCP (<em>Turn on MCP</em>)</td>
+<td>Your HTTP API token and session token, as for the HTTP API, and it keeps the InboxCRM account (user id) the token belongs to; in transit, the requests of the AI apps you connected and your browser's answers, within your switches (section 3.4)</td>
+<td>Only while you have <em>Turn on MCP</em> switched on; at an address with your token, only while the HTTP API is switched on as well</td>
+</tr>
+<tr>
+<td>The same relay, for troubleshooting</td>
+<td>With each connection of your browser, the Extension's version and whether it has the <em>Turn on MCP</em> switch, and, when your browser disconnects by itself, why; it keeps these for your last 3 connections, and the time and reason of the newest connection it turned away, per account and per token (section 3.4)</td>
+<td>Whenever your browser connects to the relay (HTTP API, <em>Turn on MCP</em> or courier updates); each record is replaced by a newer one</td>
 </tr>
 <tr>
 <td>The same relay, for courier updates</td>
@@ -527,9 +593,9 @@ instruction, and they never reach us.</p>
 <td>Only when you sign in there to connect an AI app</td>
 </tr>
 <tr>
-<td>An AI app you connect to the relay (for example Claude or Claude Code, by Anthropic, or ChatGPT, by OpenAI)</td>
-<td>The results of what it asks for: whether a message was sent; only with <em>Let Claude read my chats and orders</em> switched on, your recent chats, a chat's last text messages, contact search results, your orders and your other InboxCRM records; only with <em>Let Claude change my InboxCRM</em> switched on, the outcome of the changes it asks for</td>
-<td>Only after you add the relay's address to the app yourself; reading and changes only while their switches are on</td>
+<td>An AI app you connect to the relay (for example Claude or Claude Code, by Anthropic, ChatGPT, by OpenAI, or Gemini and Gemini CLI, by Google)</td>
+<td>The results of what it asks for: whether a message was sent; whether InboxCRM can be reached and why not (yes or no for WhatsApp Web, your sign-in, your plan and your switches, the Extension's version, your local time and time zone, and the connection records of section 3.4); only with <em>Let Claude read my chats and orders</em> switched on, your recent chats, a chat's last text messages, contact search results, your orders and your other InboxCRM records; only with <em>Let Claude change my InboxCRM</em> switched on, the outcome of the changes it asks for</td>
+<td>Only after you add the relay's address to the app yourself; everything but the connection check only while <em>Turn on MCP</em> is on (at an address with your token, also the HTTP API); reading and changes only while their switches are on</td>
 </tr>
 </tbody>
 </table>
@@ -564,6 +630,13 @@ required by law or to protect users and the service.</p>
   your InboxCRM and replaces older ones as new ones come. A demo copy for
   reviewers goes back to its sample every 24 hours and is emptied after 3 days
   without use.</li>
+<li><strong>Connection records for troubleshooting</strong> (section 3.4): the
+  version and the disconnect reason kept with one of your last 3 connections go
+  when that connection drops out of the 3; a disconnect reason is also dropped
+  when that browser connects again. The newest turned-away connection, per account
+  and per token, stays until a newer one replaces it. They are not deleted
+  otherwise; you can ask us to delete them (section 11). Nothing is stored when an
+  AI app asks why InboxCRM does not connect.</li>
 <li><strong>Webhook deliveries</strong>: the list of recent deliveries is stored on your
   device and removed with the event or with the Extension. What the receiving
   system keeps is up to its operator.</li>
@@ -594,10 +667,11 @@ storage or transmission is completely secure. Practical steps you should take:</
 <h2>8. Your choices</h2>
 <p>You can, at any time:</p>
 <ul>
-<li>Use the Extension without configuring AI, webhooks, the HTTP API or Meta Pixel</li>
+<li>Use the Extension without configuring AI, webhooks, the HTTP API, MCP or Meta Pixel</li>
 <li>Switch a webhook or the HTTP API off again, or make a new HTTP API token</li>
-<li>Switch Claude's reading or changes off, or disconnect an AI app under
-  <em>Connected apps</em> on the Claude tab of the HTTP API settings</li>
+<li>Switch MCP off, or its reading or changes, or disconnect an AI app under
+  <em>Connected apps</em>, in the MCP window (on WhatsApp Web, the <em>MCP</em>
+  button in the rail) or the <em>MCP</em> card on the Settings page</li>
 <li>Switch Meta Pixel off, or remove its token</li>
 <li>Remove a saved API key from Settings</li>
 <li>Turn off individual automations and the AI assistant</li>
@@ -631,7 +705,7 @@ WhatsApp's own Terms of Service, and it is your responsibility to use it in a
 way that complies with them and with the messaging and privacy laws that apply
 to you.</p>
 <h2>Chat backup (local archive and optional cloud copy)</h2>
-<p>InboxCRM can keep a <strong>local archive</strong> of your WhatsApp chats, contacts and media in your browser's extension storage on your own computer, and export it as a ZIP file. This archive never leaves your device unless you turn on <strong>Cloud backup</strong>.</p>
+<p>InboxCRM can keep a <strong>local archive</strong> of your WhatsApp chats, contacts and media in your browser's extension storage on your own computer, and export it as a ZIP file. On a new install it is off: nothing is archived until you switch on automatic backup or press <em>Back up now</em> on the Chat backup page. This archive never leaves your device unless you turn on <strong>Cloud backup</strong>.</p>
 <p>If you connect a WA Backup cloud account, an encrypted copy of the archive is uploaded to a server operated by Extino Ltd. The copy is encrypted on your device with AES-256-GCM using a recovery key that is generated on your device and never sent to us; the server stores only ciphertext, opaque record references and timestamps, and cannot read your messages. You can disconnect the account at any time, and the account settings in the web viewer let you delete every stored record. If you lose your recovery key, the cloud copy cannot be decrypted by anyone, including us.</p>
 <footer>© 2026 Extino Ltd · <a href="https://extino.net">extino.net</a></footer>
 </main></body></html>
