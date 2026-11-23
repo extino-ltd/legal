@@ -15,7 +15,7 @@
 </head>
 <body><main>
 <h1>Privacy Policy for InboxCRM</h1>
-<p><strong>Effective date:</strong> October 29, 2026</p>
+<p><strong>Effective date:</strong> November 6, 2026</p>
 <p>InboxCRM ("the Extension", "we", "us", "our") is a browser extension that
 adds customer-relationship-management tools to WhatsApp Web. This policy
 explains what information the Extension handles, where it is stored, and the
@@ -28,7 +28,8 @@ limited circumstances in which any of it leaves your device.</p>
   templates, schedules, orders and reports — is stored in Chrome's local
   extension storage on your own computer.</li>
 <li>Our servers <strong>do not receive your WhatsApp conversations or your CRM
-  records</strong>. There is one exception, and it is off until you switch it on: with
+  records</strong>, except in the optional features described here, each of which is
+  off until you choose it. With
   the optional HTTP API, the messages <em>your own systems</em> ask InboxCRM to send
   pass through our relay on their way to your browser (section 3.4). The relay
   does not store them. If you connect an AI app such as Claude, ChatGPT or Gemini
@@ -43,14 +44,21 @@ limited circumstances in which any of it leaves your device.</p>
   versions, times and reason codes (section 3.4). With the
   optional courier updates, a courier's status
   updates for your parcels wait on the same relay until your browser collects
-  them (section 3.8).</li>
+  them (section 3.8). If you start the optional <strong>AI Chat Coach</strong>, the
+  text of your recent one-to-one chats, with phone numbers, other long numbers,
+  e-mail addresses, links and the customer's names first removed in your browser,
+  goes to our AI gateway, which passes it through OpenRouter to an AI model and
+  keeps none of it; while its weekly suggestions are on, the customer messages no
+  Automation answered, your replies to them and your Automations take the same
+  route, by themselves at most once a week, or when you ask (section 3.12).</li>
 <li>Information leaves your device only when you choose a feature that requires
-  it: the optional AI assistant, optional webhooks you configure yourself, the
+  it: the optional AI assistant, the optional AI Chat Coach, optional webhooks you configure yourself, the
   optional HTTP API, courier and cloud-backup features you connect, the
   optional alerts to your own Telegram or WhatsApp number, the optional Meta
   Pixel connection to your own Meta ad account, an AI app you connect
   yourself (and the sign-in for it), and our account and subscription service.</li>
-<li>We do not sell your data. We do not use it for advertising. If you switch
+<li>We do not sell your data. We do not use it for advertising or to train AI
+  models. If you switch
   on the optional Meta Pixel connection, your browser sends the events
   described in section 3.10 to <strong>your own</strong> Meta ad account; we do not
   receive them. We run no
@@ -61,7 +69,9 @@ limited circumstances in which any of it leaves your device.</p>
 <hr />
 <h2>2. Information the Extension handles</h2>
 <h3>2.1 Data stored locally on your device</h3>
-<p>Stored in <code>chrome.storage.local</code> and never transmitted by us:</p>
+<p>Stored in <code>chrome.storage.local</code> on your device. The Extension sends none
+of it anywhere except through the features described in section 3, and only as
+described there:</p>
 <ul>
 <li>Contact names and phone numbers (WhatsApp chat identifiers) attached to the
   CRM records you create</li>
@@ -75,6 +85,10 @@ limited circumstances in which any of it leaves your device.</p>
 <li>Your product list and stock levels, your income and expense entries, and the
   business profile you set up (country, currency, business type and which
   features are switched on)</li>
+<li>Your answers in the setup's <em>About you</em> step: your business name, what
+  you sell, your opening hours, your answers to common customer questions and the
+  messages InboxCRM sends for you (section 3.13)</li>
+<li>What the AI Chat Coach keeps for its suggestions (section 3.12)</li>
 <li>Campaign recipient lists and send logs</li>
 <li>Sending-safety settings and the counters that enforce your daily and hourly
   limits</li>
@@ -85,10 +99,13 @@ limited circumstances in which any of it leaves your device.</p>
 <p>To provide its features, the Extension reads content from the WhatsApp Web page
 you have open — the currently selected conversation, its participants, and
 recent message text. This is used to display the panel, to evaluate the
-automation rules you set up, and, if you use the AI assistant, to give the AI
-model context. Unless you turn on Chat backup (described at the end of this
-policy), the Extension does not keep a copy of your chat history; only the CRM
-records you create are stored.</p>
+automation rules you set up, if you use the AI assistant, to give the AI
+model context, and, if you start the AI Chat Coach, to find the questions your
+customers ask, for which it also reads your other recent one-to-one chats
+(section 3.12). Apart from Chat backup (described at the end of this policy),
+if you turn it on, and what the AI Chat Coach keeps for its suggestions
+(section 3.12), the Extension does not keep a copy of your chat history; only
+the CRM records you create are stored.</p>
 <h3>2.3 Credentials</h3>
 <ul>
 <li>Any AI provider API key you choose to save</li>
@@ -108,7 +125,9 @@ provider they belong to; they, the Telegram bot key, the Meta access token and t
 address are left out of the backup files the Extension creates. The HTTP API token and your session token are
 presented to our relay while the HTTP API, <em>Turn on MCP</em> or courier updates is switched on (sections 3.4
 and 3.8). The Telegram bot key is given to our
-relay only if you switch on Telegram alerts for the HTTP API (section 3.4), and only for as long as they are on.</p>
+relay only if you switch on Telegram alerts for the HTTP API (section 3.4), and only for as long as they are on.
+Your session token also goes with each request of the AI Chat Coach to our AI
+gateway, which checks your plan with it and does not keep it (section 3.12).</p>
 <hr />
 <h2>3. When information leaves your device</h2>
 <h3>3.1 AI assistant (optional)</h3>
@@ -124,8 +143,9 @@ the contact or group name, and anything you typed in the composer.</p>
 <li><strong>Groq</strong> — <code>api.groq.com</code></li>
 </ul>
 <p>Each provider processes that data under its own privacy policy and terms. We do
-not receive a copy. If you never use an AI feature, no message content leaves
-your browser.</p>
+not receive a copy. If you have not saved an AI key, these features send nothing.
+The AI Chat Coach (section 3.12) is separate: it needs no key of yours, and the
+text it sends reaches OpenRouter through our own AI gateway.</p>
 <p>If you enable per-message AI rewording in bulk campaigns, the message text for
 each recipient is likewise sent to the provider you selected.</p>
 <h3>3.2 Account and subscription (<code>api.inboxcrm.extino.net</code>)</h3>
@@ -480,6 +500,134 @@ that address to an app yourself and start its sign-in.</p>
   anywhere. Each connected app gets its own copy, which goes back to the sample
   every 24 hours; a copy that nobody uses for 3 days is emptied.</li>
 </ul>
+<h3>3.12 AI Chat Coach (optional, from version 2.3.0)</h3>
+<p>The AI Chat Coach reads your past chats to find the questions your customers
+ask most and how you usually answer them. It then proposes Automations, quick
+replies, a pipeline and a follow-up for you to review, with answers taken from
+<strong>your own replies</strong>. To do this, it sends the text of your chats,
+prepared in your browser, through a server of ours to an AI model. Nothing is
+sent until you press <em>Learn from my chats</em> (in the <em>Set up</em> step of
+the first-run setup, or under <em>Improve with AI</em> on the Automations
+page).</p>
+<ul>
+<li><strong>Before you start.</strong> The card with that button says what is
+  read, what is never read, what is removed first and what the weekly suggestions
+  keep and send. To show how many chats it
+  would read, the Extension counts your chats in your browser, and <em>See what
+  will be sent</em> shows you three of your chats exactly as they would be sent.
+  Neither sends anything. Pressing <em>Learn from my chats</em> records your
+  agreement in your browser and starts one analysis; each new analysis needs the
+  button again. The first press also switches on the weekly suggestions
+  described below, as the card says; later analyses leave that switch as you
+  set it.</li>
+<li><strong>What is read.</strong> Through WhatsApp Web, the newest messages (at
+  most 60) of each one-to-one chat that had a message in the last 90 days, at most
+  400 chats, newest first. Only the text of text messages is used: photos,
+  videos, voice notes, documents and their captions are left out. Groups,
+  channels, status updates and archived chats are not read, and neither are chats
+  with people saved in your phone's contacts if you switch on <em>Leave out people
+  saved in my phone contacts</em>. Only chats that hold both a customer message
+  and your reply are sent, and nothing is sent if there are fewer than 5 of
+  them.</li>
+<li><strong>What is removed first.</strong> In your browser, before anything is
+  sent: phone numbers; other numbers of 8 digits or more, such as card, bank
+  account and identity card numbers; e-mail addresses; links; and the customer's
+  names (the name you saved for them, the name of the chat and their WhatsApp
+  profile name). Each is replaced by a marker such as <code>[phone]</code>.
+  Everything else stays as written: prices and products, but also an address, a
+  place, another person's name or any other personal detail written in words.
+  Details are recognised by their pattern, so one written in an unusual way may
+  stay in the text.</li>
+<li><strong>What is sent.</strong> The chats as lines marked "customer" or "you",
+  each chat and line under a made-up number (such as <code>c12.3</code>), in at
+  most 8 requests. Nothing else goes with the text: not the chat's phone number or
+  WhatsApp identifier, not the contact's name, not the message times, and none of
+  your CRM records. Your InboxCRM session token
+  goes with each request, so that the gateway can confirm that your plan is
+  active; it does not keep the token.</li>
+<li><strong>Who receives it.</strong> Our AI gateway at
+  <code>inboxcrm-ai.extino.workers.dev</code>, run by Extino Ltd on Cloudflare
+  Workers (Cloudflare, Inc.). It checks your token and your monthly allowance,
+  then sends the text, with fixed instructions of ours but without your token or
+  user id, to OpenRouter (OpenRouter, Inc., <code>openrouter.ai</code>). OpenRouter
+  passes it to a company that runs the AI model: today Claude Haiku 5.5, a model
+  by Anthropic, or, if that is not available, Gemma 4, an open model by Google.
+  OpenRouter chooses the company (the model's maker or a cloud service that hosts
+  the model). Our gateway asks it to choose only providers that, according to
+  OpenRouter, do not store or train on the data they receive (OpenRouter's
+  <code>data_collection: "deny"</code> setting). We may change the model without a
+  new version of the Extension; any model is reached the same way, under the same
+  rules.</li>
+<li><strong>What comes back.</strong> The questions the model found, in a few
+  words; the words and short examples customers used, copied from the text it was
+  sent; hints for a pipeline, your hours and a follow-up; and the made-up numbers
+  of your own lines that
+  answer each question. The model never writes an answer: your browser looks the
+  numbers up in your chats, so every proposed answer is a message you wrote
+  yourself, and it keeps a word or an example only if a customer really wrote it.
+  Nothing is created until you review the list and set it up, and Automations
+  made this way start switched off unless you switch on <em>Start replying right
+  away</em>.</li>
+<li><strong>What our gateway and the AI providers keep.</strong> Our gateway
+  keeps no message text. For your account it keeps the counters of your
+  allowance: the analyses of this month (each under a random run id), the
+  suggestion runs of this week and the AI tokens used this month; the counts
+  start again each month and each week. Its log lines hold the kind of request, a
+  shortened hash of your user id, the model, the number of tokens and the outcome,
+  never a message. OpenRouter and the company that runs the model handle the text
+  under their own terms and privacy policies.</li>
+<li><strong>Weekly suggestions.</strong> Once you have pressed <em>Learn from my
+  chats</em>, while <em>Weekly suggestions</em> is on (it is on until you switch it
+  off) and at least
+  one of your Automations is switched on, the Extension notes in your browser each
+  message a customer writes to you in a one-to-one chat that no Automation
+  answered (3 to 1,000 characters long), prepared the same way: phone numbers,
+  other long numbers, e-mail addresses, links and the customer's names (their
+  WhatsApp profile name and the name you saved for them) are removed, and at most
+  400 characters are kept. If you switched on <em>Leave out people saved in my
+  phone contacts</em>, messages from those people are not noted, and while the
+  Extension does not yet know which of your chats are saved contacts, no message
+  is noted at all. By itself at most once a week (it looks once a day), when at
+  least 10 such messages arrived since the last time, or when you press <em>Make
+  suggestions now</em>, the Extension reads in WhatsApp Web the first text you
+  sent in each of those chats within an hour after the customer's message,
+  removes the same details from it, the customer's names included, and sends to
+  the gateway, as above: up to 200 of the noted messages with those replies, and
+  your switched-on Automations (at most 50: their name and first text answer,
+  with phone numbers, other long numbers, e-mail addresses and links removed, and
+  their trigger words as you wrote them). Up to 5 suggestions come back: words to add
+  to a rule, or a new rule whose answer is one of your own replies, in your exact
+  words. Nothing changes until you accept one; a new rule you accept is switched
+  on.</li>
+<li><strong>Kept in your browser</strong>, and never put in a backup file: the
+  noted messages, with the identifier of each one's chat and the customer's names,
+  which are never sent (at most 500, from the last 30 days: a daily check drops
+  older ones, also while the weekly suggestions are off); the proposal of the last analysis, including your
+  own answers as you wrote them, until you set it up, a new analysis replaces it
+  or you delete it; the suggestions (a dismissed one is remembered for 4 weeks, so
+  that it is not made again); and the Coach's settings and progress.</li>
+<li><strong>Your control.</strong> Nothing is sent if you never press <em>Learn
+  from my chats</em>, and <em>Cancel</em> stops an analysis that is running. On the
+  Settings page, the <em>AI Chat Coach</em> card (shown once you have pressed
+  <em>Learn from my chats</em>) switches <em>Weekly suggestions</em> off, which
+  stops both the noting and the
+  weekly sending, and its <em>Delete</em> removes the noted messages, the
+  suggestions and the proposal from your browser. Uninstalling the Extension
+  removes all of it. You decide whether your customers' messages are shared this
+  way, and you are responsible for telling your customers and for whatever lawful
+  basis or consent that requires where you and they are.</li>
+</ul>
+<h3>3.13 Setting up from your answers (from version 2.3.0)</h3>
+<p>The <em>About you</em> step of the first-run setup asks for your business name,
+what you sell, your opening hours, your answers to common customer questions and
+the messages InboxCRM sends for you. They are stored on your device (section
+2.1) and go into backup files with your business profile. <em>Set it up for
+me</em> makes a pipeline, Automations, a follow-up and quick replies from them in
+your browser and sends nothing. <em>Set up with AI</em> shows a prompt that
+contains these answers, for you to copy into your own AI app (Claude, ChatGPT or
+Gemini); the Extension does not send it anywhere. What you paste goes to that
+app's company under its own terms, and the app then works in InboxCRM through the
+MCP connection of section 3.4, within your switches.</p>
 <hr />
 <h2>4. How information is used</h2>
 <p>Information handled by the Extension is used only to:</p>
@@ -489,6 +637,8 @@ that address to an app yourself and start its sign-in.</p>
 <li>Send the messages you compose, schedule or approve</li>
 <li>Apply the sending-safety limits you configure</li>
 <li>Generate AI drafts when you request them</li>
+<li>Find the questions your customers ask and suggest Automations made from your
+  own replies, when you use the AI Chat Coach</li>
 <li>Deliver the webhook events you subscribed to</li>
 <li>Send Lead and Purchase events to your own Meta Pixel, if you switched that on</li>
 <li>Pass on the messages your own systems send through the HTTP API</li>
@@ -497,8 +647,8 @@ that address to an app yourself and start its sign-in.</p>
 <li>Verify your subscription</li>
 <li>Diagnose crashes and broken features from anonymised error reports</li>
 </ul>
-<p>We do not use it for advertising, profiling, credit decisions, or sale to any
-third party. The Meta Pixel connection (section 3.10) serves your own
+<p>We do not use it for advertising, profiling, credit decisions, training AI
+models, or sale to any third party. The Meta Pixel connection (section 3.10) serves your own
 advertising account: your browser sends those events to Meta on your
 instruction, and they never reach us.</p>
 <hr />
@@ -515,7 +665,17 @@ instruction, and they never reach us.</p>
 <tr>
 <td>OpenRouter, OpenAI, Google (Gemini), Groq</td>
 <td>AI prompt containing recent message text and your draft</td>
-<td>Only when you use an AI feature</td>
+<td>Only when you use an AI feature with your own key (section 3.1)</td>
+</tr>
+<tr>
+<td>Extino AI gateway for the AI Chat Coach (<code>inboxcrm-ai.extino.workers.dev</code>), hosted on Cloudflare Workers (Cloudflare, Inc.)</td>
+<td>Your session token, to check your plan (not kept); for an analysis, the text of your recent one-to-one chats as customer and reply lines, with phone numbers, other long numbers, e-mail addresses, links and customer names removed; for weekly suggestions, the customer messages no Automation answered and your replies to them (with personal details removed as described in section 3.12), and your switched-on Automations (contact details removed from their name and answer, trigger words as written). It keeps no text: only the counters of your allowance, and log lines with a shortened hash of your user id, the model, token counts and the outcome</td>
+<td>Only after you press <em>Learn from my chats</em>: for each analysis you start, when you press <em>Make suggestions now</em>, and at most once a week while <em>Weekly suggestions</em> is on</td>
+</tr>
+<tr>
+<td>OpenRouter (OpenRouter, Inc.) and the company it chooses to run the AI model (today Claude Haiku 5.5 by Anthropic, or Gemma 4 by Google as a fallback)</td>
+<td>The same text, with our fixed instructions, but not your token or user id; we ask for providers that, according to OpenRouter, do not store or train on it</td>
+<td>As for our AI gateway, above</td>
 </tr>
 <tr>
 <td>Extino account service for InboxCRM (<code>api.inboxcrm.extino.net</code>, Firebase project <code>inboxcrm-5d961</code> on Google, hosted on Cloudflare Workers)</td>
@@ -614,6 +774,14 @@ required by law or to protect users and the service.</p>
   keep or delete.</li>
 <li><strong>AI providers</strong> retain prompts according to their own policies. Review the
   policy of whichever provider you configure.</li>
+<li><strong>AI Chat Coach</strong> (section 3.12): in your browser, at most 500
+  noted customer messages, from the last 30 days (a daily check drops older
+  ones); the Coach's <em>Delete</em> on the Settings page removes them,
+  the suggestions and the proposal at once, and uninstalling removes everything.
+  Our AI gateway keeps no message; the counters of your allowance start again each
+  month and each week. OpenRouter and the company that runs the model keep data
+  according to their own policies; we ask for providers that, according to
+  OpenRouter, do not store it.</li>
 <li><strong>The HTTP API relay</strong> keeps no message, phone number or file after a
   request is delivered or fails. The per-minute request times it stores are
   replaced as new requests arrive. If you switch on alerts for when your
@@ -661,6 +829,8 @@ storage or transmission is completely secure. Practical steps you should take:</
 <li>On the InboxCRM page that asks you to allow an AI app, press <em>Allow</em>
   only if you started the connection yourself just now, and disconnect apps you
   no longer use.</li>
+<li>Before you start the AI Chat Coach, look at <em>See what will be sent</em>:
+  details written in words, such as an address, are not removed.</li>
 <li>Store exported backup files somewhere safe; they contain your CRM data.</li>
 </ul>
 <hr />
@@ -673,6 +843,9 @@ storage or transmission is completely secure. Practical steps you should take:</
   <em>Connected apps</em>, in the MCP window (on WhatsApp Web, the <em>MCP</em>
   button in the rail) or the <em>MCP</em> card on the Settings page</li>
 <li>Switch Meta Pixel off, or remove its token</li>
+<li>Not use the AI Chat Coach, or switch its weekly suggestions off and delete
+  what it keeps in your browser (the <em>AI Chat Coach</em> card on the Settings
+  page)</li>
 <li>Remove a saved API key from Settings</li>
 <li>Turn off individual automations and the AI assistant</li>
 <li>Export, import or delete your data from the Backup screen</li>
